@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   },
   membershipStatus: {
     type: String,
-    required: true,
+    default: 'false',
   },
   createdAt: {
     type: Date,
