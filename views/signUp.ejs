@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="../public/style.css">
 </head>
 <body>
+    <% if (locals.messages.errors) { %>
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>    
+    <% } %>
     <h1>Please Sign Up</h1>
     <form action="/new/postUser" method="post">
         <div>
@@ -23,7 +28,11 @@
         </div>
         <div>
             <label for="password">Enter your password:</label>
-            <input type="text" name="password" id="password">
+            <input type="password" name="password" id="password">
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm your password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword">
         </div>
         <button type="submit">Confirm</button>
     </form>

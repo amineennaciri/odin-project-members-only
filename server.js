@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
+const flash = require('express-flash');
 const mainRoutes = require('./routes/index');
 const postRoutes = require('./routes/post');
 const connectDB = require("./config/database");
@@ -17,6 +18,7 @@ require('./config/passport')(passport);
 //Connect To Database
 connectDB();
 app.use(passport.initialize());
+// you will have access to the currentUser variable in all of your views, and you won’t have to manually pass it into all of the controllers in which you need it.
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     next();
@@ -27,6 +29,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+// these are the flash alert that works when something isn't working well with our log ins
+app.use(flash());
 
 app.use("/", mainRoutes);
 app.use("/new", postRoutes);
