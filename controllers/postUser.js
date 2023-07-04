@@ -6,6 +6,9 @@ module.exports = {
     getSignUp: (req,res)=>{
         res.render('signUp.ejs')
     },
+    getLogIn: (req,res)=>{
+      res.render('logIn.ejs')
+  },
     postSignUp: async (req, res, next)=>{
       const validationErrors = []
       if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
@@ -13,7 +16,7 @@ module.exports = {
       if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' })
       if (validationErrors.length) {
         req.flash('errors', validationErrors)
-        return res.redirect('../new')
+        return res.redirect('../signup')
       }
       req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
       bcrypt.hash(req.body.password, 10, async   (err, hashedPassword) => {
@@ -27,7 +30,7 @@ module.exports = {
           });
           if (existingUser) {
             req.flash('errors', { msg: 'Account with that email address or username already exists.' });
-            return res.redirect('../new');
+            return res.redirect('../signup');
           }
           const user = new User({
             firstName: req.body.firstN,
@@ -43,33 +46,8 @@ module.exports = {
           return next(err);
         };
       });
-      /*
-      User.findOne({$or: [
-        {email: req.body.email},
-        {firstName: req.body.firstN},
-        {lastName: req.body.lastN},
-      ]}, (err, existingUser) => {
-        if (err) { return next(err) }
-        if (existingUser) {
-          req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-          return res.redirect('../new')
-        }
-        user.save((err) => {
-          if (err) { return next(err) }
-          req.logIn(user, (err) => {
-            if (err) {
-              return next(err)
-            }
-            res.redirect('/');
-          })
-        })
-      });
-      */
-/*       try {
+    },
+    postLogIn:{
 
-      } catch (err) {
-        next(err);
-      } */
-      
     },
 }
