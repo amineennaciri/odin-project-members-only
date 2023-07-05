@@ -8,6 +8,10 @@ router.get('/dashboard', homeController.getDash);
 router.get('/signup', postController.getSignUp);
 router.get('/login', postController.getLogIn);
 router.post('/login', postController.postLogIn);
+/* router.post('/login', passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/dashboard"
+  })); */
 router.post('/postUser', postController.postSignUp);
 
 module.exports = router;

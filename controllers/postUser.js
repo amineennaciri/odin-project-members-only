@@ -2,9 +2,15 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('./../models/user');
 const validator = require('validator');
+
+const logInMiddleware = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/dashboard',
+});
+
 module.exports = {
     getSignUp: (req,res)=>{
-        res.render('signUp.ejs')
+        res.render('signUp.ejs');
     },
     getLogIn: (req,res)=>{
       res.render('logIn.ejs')
@@ -47,7 +53,16 @@ module.exports = {
         };
       });
     },
-    postLogIn: async (req, res, next)=>{
+    postLogIn: (req, res, next)=> {
+      /* console.log('postLogIn is working');
+      passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/dashboard"
+    })
+      console.log(`passport checked`);
+      res.redirect('/'); */
+      logInMiddleware(req, res, next);
+    },/* async (req, res, next)=>{
       const validationErrors = []
       if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
       if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' });
@@ -89,5 +104,5 @@ module.exports = {
       }catch (err){
         return next(err);
       }
-    },
+    },*/
 }
