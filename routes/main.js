@@ -1,17 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const homeController = require('./../controllers/home');
-const postController = require('./../controllers/postUser');
+const postUsrController = require('./../controllers/postUser');
 
 router.get('/', homeController.getIndex);
-router.get('/dashboard', homeController.getDash);
-router.get('/signup', postController.getSignUp);
-router.get('/login', postController.getLogIn);
-router.post('/login', postController.postLogIn);
-/* router.post('/login', passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/dashboard"
-  })); */
-router.post('/postUser', postController.postSignUp);
+router.get('/signup', postUsrController.getSignUp);
+router.get('/login', postUsrController.getLogIn);
+router.post('/login', postUsrController.postLogIn);
+router.get('/logout', postUsrController.getLogOut);
+router.post('/postUser', postUsrController.postSignUp);
 
 module.exports = router;

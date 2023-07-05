@@ -5,13 +5,13 @@ const MessageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  text: {
+  textMsg: {
     type: String,
     require: true,
   },
   author: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users',
   },
   timestamp: {
     type: Date,

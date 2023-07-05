@@ -10,6 +10,7 @@
     <h1>Welcome to the Odin Social Media App</h1>
     <% if (user) {%>
         <h1>WELCOME BACK <%= user.firstName + ' ' + user.lastName %></h1>
+        <button><a href="/message">Create a new message</a></button>
         <button><a href="/logout">Click here to log out</a></button>
     <% } else { %>
         <button><a href="/signup">Click here to sign up</a></button>

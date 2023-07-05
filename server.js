@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("passport");
 const flash = require('express-flash');
 const mainRoutes = require('./routes/main');
+const messageRoutes = require('./routes/message');
 const connectDB = require("./config/database");
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -31,8 +32,8 @@ app.use(express.json());
 // these are the flash alert that works when something isn't working well with our log ins
 app.use(flash());
 
-app.use("/", mainRoutes);/* 
-app.use("/new", postRoutes);*/
+app.use("/", mainRoutes);
+app.use("/message", messageRoutes);
 /* app.post(
   "/login",
   passport.authenticate("local", {

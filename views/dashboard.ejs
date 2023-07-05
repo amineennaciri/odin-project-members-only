@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1>Welcome to the Dashboard</h1>
+    <h2>Create your Message</h2>
+    <form action="message/new" method="post">
+        <div>
+            <label for="title">Enter your Title:</label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div>
+            <label for="textMsg">Enter your Message:</label>
+            <input type="text" name="textMsg" id="textMsg">
+        </div>
+        <button type="submit">Confirm</button>
     <script src="../public/main.js"></script>
 </body>
 </html>
