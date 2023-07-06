@@ -13,6 +13,21 @@
         <button><a href="/message">Create a new message</a></button>
         <button><a href="/club">Join the Club</a></button>
         <button><a href="/logout">Click here to log out</a></button>
+        <ul>
+            <% messages.forEach( el => { %>
+                <li class='msgItem' data-id='<%=el._id%>'>
+                        <span><strong>Title:</strong><%= el.title %>:</span>
+                        <span><strong>Message:</strong><%= el.textMsg %></span>
+                        <%if(user.membershipStatus==='true'){%>
+                        <span><strong>this is the users Id:</strong><%= el.author %></span>
+                        <span><strong>created at:</strong><%= el.timestamp %></span>
+                        <%}%>
+                        <%if(user.adminStatus==='true'){%>
+                            <button class="deleteMsg">delete this message</button>
+                            <%}%>
+                </li>
+            <% }) %>    
+        </ul>
     <% } else { %>
         <button><a href="/signup">Click here to sign up</a></button>
         <button><a href="/login">Click here to log in</a></button>

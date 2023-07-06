@@ -2,9 +2,6 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('./../models/user');
 const validator = require('validator');
-/* //Use .env file in config folder
-require("dotenv").config({ path: "./config/.env" });
- */
 
 const logInMiddleware = passport.authenticate('local', {
   successRedirect: '/',
@@ -75,19 +72,19 @@ module.exports = {
       });
     },
     postClub: async(req,res,next)=>{
-      if(!!req.user.membershipStatus){
-        if(req.body.passmods=='iowntheapp'){
+      if(req.user.membershipStatus==='true'){
+        if(req.body.passmods==='iowntheapp'){
           const selectedUser = await User.findOne({ _id: req.user._id });
           selectedUser.adminStatus = true;
           await selectedUser.save();
           res.redirect("/");
         }else{
-          req.flash('errors', { msg: 'Passcode is wrong, please try again.' });
+          req.flash('errors', { msg: 'Passmods is wrong, please try again.' });
           res.redirect("/club");
         }
       }else{
-        console.log(process.env.PASSCODE);
-        if(req.body.passcode=='membersonly'){
+        //console.log();
+        if(req.body.passcode==='membersonly'){
           const selectedUser = await User.findOne({ _id: req.user._id });
           selectedUser.membershipStatus = true;
           await selectedUser.save();
