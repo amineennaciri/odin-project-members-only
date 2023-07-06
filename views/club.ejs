@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Members Only</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <% if (locals.messages.errors) { %>
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>    
+    <% } %>
+    <h1>Welcome to the Membership Area</h1>
+    <% if(user.membershipStatus === 'true') { %>
+    <h2>Join the Mods, Become an Admin</h2>
+    <form action="join" method="post">
+        <div>
+            <label for="passmods">Enter the secret passcode to join the mods:</label>
+            <input type="password" name="passmods" id="passmods">
+        </div>
+    <button type="submit">Confirm</button>
+    <% } else { %>
+    <h2>Join the club, become an insider, fill the form below</h2>
+    <form action="join" method="post">
+        <div>
+            <label for="passcode">Enter the secret passcode to join the club:</label>
+            <input type="password" name="passcode" id="passcode">
+        </div>
+    <button type="submit">Confirm</button>
+    <%}%>
+    <script src="main.js"></script>
+</body>
+</html>

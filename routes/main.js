@@ -10,4 +10,8 @@ router.post('/login', postUsrController.postLogIn);
 router.get('/logout', postUsrController.getLogOut);
 router.post('/postUser', postUsrController.postSignUp);
 
+//membership and admin access routes
+router.get('/club', homeController.getClub);
+router.post('/join', postUsrController.postClub);
+
 module.exports = router;

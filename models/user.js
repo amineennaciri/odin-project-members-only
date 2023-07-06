@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'false',
   },
+  adminStatus: {
+    type: String,
+    default: 'false',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

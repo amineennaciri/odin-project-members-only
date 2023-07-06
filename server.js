@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 
 app.use(passport.session());
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 // these are the flash alert that works when something isn't working well with our log ins

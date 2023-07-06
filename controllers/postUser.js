@@ -2,6 +2,9 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('./../models/user');
 const validator = require('validator');
+/* //Use .env file in config folder
+require("dotenv").config({ path: "./config/.env" });
+ */
 
 const logInMiddleware = passport.authenticate('local', {
   successRedirect: '/',
@@ -71,47 +74,28 @@ module.exports = {
         res.redirect("/");
       });
     },
-    /* async (req, res, next)=>{
-      const validationErrors = []
-      if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
-      if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' });
-      if (validationErrors.length) {
-        req.flash('errors', validationErrors)
-        return res.redirect('/login')
-      };
-      req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
-      // if the authentication is successful, we send a message 'Sucess! You are logged in.' and we redirect them to the todos page.
-      try{
-        const {email} = req.body;
-        const user = await User.findOne({email});
-        if(!user){
-          req.flash('errors', { msg: `Account with that email address isn't registered, please sign up.`});
-          return res.redirect('/login');
-        };
-        bcrypt.compare(req.body.password, user.password, async   (err, res) => {
-        if (!res) {
-          req.flash('errors', { msg: `Incorrect password.`});
-          //done(null, false);
-          return res.redirect('/login');
-        };
-        if (res) {
-          //done(null, user);
-          return res.redirect('/dashboard');
-        }})
-          // if the authentication is successful, we send a message 'Sucess! You are logged in.' and we redirect them to the todos page.
-    passport.authenticate('local', async (err, user, info) => {
-      if (!user) {
-        req.flash('errors', info)
-        return res.redirect('/login')
+    postClub: async(req,res,next)=>{
+      if(!!req.user.membershipStatus){
+        if(req.body.passmods=='iowntheapp'){
+          const selectedUser = await User.findOne({ _id: req.user._id });
+          selectedUser.adminStatus = true;
+          await selectedUser.save();
+          res.redirect("/");
+        }else{
+          req.flash('errors', { msg: 'Passcode is wrong, please try again.' });
+          res.redirect("/club");
+        }
+      }else{
+        console.log(process.env.PASSCODE);
+        if(req.body.passcode=='membersonly'){
+          const selectedUser = await User.findOne({ _id: req.user._id });
+          selectedUser.membershipStatus = true;
+          await selectedUser.save();
+          res.redirect("/");
+        }else{
+          req.flash('errors', { msg: 'Passcode is wrong, please try again.' });
+          res.redirect("/club");
+        }
       }
-      req.logIn(user, (err) => {
-        if (err) { return next(err) }
-        req.flash('success', { msg: 'Success! You are logged in.' })
-        res.redirect(req.session.returnTo || '/dashboard')
-      })
-      })
-      }catch (err){
-        return next(err);
-      }
-    },*/
+    },
 }

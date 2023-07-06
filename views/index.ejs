@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Members Only</title>
-    <link rel="stylesheet" href="../public/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Welcome to the Odin Social Media App</h1>
     <% if (user) {%>
         <h1>WELCOME BACK <%= user.firstName + ' ' + user.lastName %></h1>
         <button><a href="/message">Create a new message</a></button>
+        <button><a href="/club">Join the Club</a></button>
         <button><a href="/logout">Click here to log out</a></button>
     <% } else { %>
         <button><a href="/signup">Click here to sign up</a></button>
         <button><a href="/login">Click here to log in</a></button>
     <%}%>
-    <script src="../public/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
