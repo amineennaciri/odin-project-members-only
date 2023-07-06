@@ -5,4 +5,4 @@ This project is about building an exclusive clubhouse app where your members can
 
 By the end of the project, I will have demonstrated skills in setting up a web app with authentication using node.js and express and a mongodb database.
 
-Self-reflection and conclusion: This was agreat opportunity to practice setting a full stack app with authentication, node.js, express and mongodb database with mongoose. 
+Self-reflection and conclusion: This was agreat opportunity to practice setting a full stack app with authentication, node.js, express and mongodb database with mongoose. It's was a great opportunity to practice setting up users with private features such as admin leverages that normal users can't access.
